@@ -18,15 +18,24 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         super(MainActivity.class);
     }
 
+    /**
+     * La méthode setup est jouée avant chaque test, elle permet de (re)lancer l'activity et de
+     * réinitialsier les champs par exemple
+     *
+     * @throws Exception
+     */
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        // Espresso will not launch our activity for us, we must launch it via getActivity().
+        // Espresso ne va pas lancer l'activity pour nous, il faut le faire via getActivity().
         getActivity();
+        // RAZ du champ nom avant chaque test
+        clearName();
     }
 
+    // Remarque : il semblerait que les méthodes soient exécutées par ordre alphabétique
+
     public void testEmptyName() {
-        clearName();
         clickAndCheckName("toi");
     }
 
@@ -51,7 +60,6 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         clearName();
         fillName(name2);
         clickAndCheckName(name2);
-
     }
 
     /**
